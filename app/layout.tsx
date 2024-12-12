@@ -1,16 +1,20 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Metadata } from "next";
+import { Roboto } from "next/font/google"; // Import Roboto font
+import { Poppins } from "next/font/google"; // Import Poppins font
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
+import AuthProvider from "@/context/NextAyth";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+const roboto = Roboto({
+  subsets: ["latin"], 
+  weight: ["400"], 
+  variable: "--font-roboto", 
 });
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: [ "300" ],
+  variable: "--font-poppins", 
 });
 
 export const metadata: Metadata = {
@@ -25,11 +29,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+         <AuthProvider>
+      <body className={`${poppins.className} ${poppins.variable}   antialiased`}>
         {children}
+        <Toaster />
       </body>
+      </AuthProvider>
     </html>
   );
 }
